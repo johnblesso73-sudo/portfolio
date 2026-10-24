@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Blesso J J — Portfolio</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-blue: #2563eb;
+      --electric-blue: #3b82f6;
+      --cyan-accent: #38bdf8;
+      --accent-glow: rgba(37, 99, 235, 0.4);
+      --amber-star: #f59e0b;
+      --bg-black: #000000;
+      --text-white: #ffffff;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(12, 14, 20, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-border-hover: rgba(59, 130, 246, 0.5);
+    }
+
+    html {
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      height: auto;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Top scroll progress indicator */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #38bdf8);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+      z-index: 999;
+      pointer-events: none;
+      transition: width 0.1s linear;
+    }
+
+    /* Fixed background canvas viewport */
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-black);
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--bg-black);
+    }
+
+    /* Subtle background watermark text */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(3.8rem, 12vw, 12rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.035);
+      text-transform: uppercase;
+      z-index: 2;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Top Navigation capsule */
+    .navbar {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      padding: 5px 8px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 9999px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+      pointer-events: auto;
+      max-width: 95vw;
+      overflow-x: auto;
+    }
+
+    .nav-link {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      padding: 7px 13px;
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-link.active {
+      color: #ffffff;
+      background: rgba(37, 99, 235, 0.45);
+      border: 1px solid var(--electric-blue);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    /* Scroll spacer providing comfortable travel distance for 240 frames */
+    #scroll-track {
+      height: 800vh;
+      width: 100%;
+      position: relative;
+      pointer-events: none;
+    }
+
+    /* Fixed overlay container for all content sections */
+    .viewport-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Individual section slides */
+    .section-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 6vw, 96px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s;
+      pointer-events: none;
+    }
+
+    .section-layer.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: none;
+    }
+
+    /* Generic glass card styles */
+    .card-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: clamp(22px, 3.5vw, 36px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      max-width: 620px;
+      pointer-events: auto;
+      max-height: 82vh;
+      overflow-y: auto;
+    }
+
+    .badge-sub {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan-accent);
+      margin-bottom: 10px;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: var(--cyan-accent);
+      margin-bottom: 8px;
+    }
+
+    .badge-tag.concept {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    .section-desc {
+      font-size: clamp(0.88rem, 1vw, 0.98rem);
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    /* Buttons */
+    .btn-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    .btn-capsule:hover {
+      background: rgba(37, 99, 235, 0.35);
+      border-color: var(--electric-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-capsule.primary {
+      background: rgba(37, 99, 235, 0.3);
+      border-color: var(--electric-blue);
+    }
+
+    .btn-capsule svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* =========================================
+       SECTION 1: HERO
+       ========================================= */
+    .hero-left {
+      max-width: 550px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
+    .hero-greeting {
+      font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text-white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-name-primary {
+      font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+      font-weight: 800;
+      color: var(--electric-blue);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-shadow: 0 0 35px rgba(37, 99, 235, 0.4);
+    }
+
+    .hero-name-secondary {
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text-white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title-tag {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cyan-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    .hero-bio {
+      font-size: clamp(0.88rem, 1.05vw, 1rem);
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.6;
+      margin-top: 8px;
+      font-weight: 400;
+      max-width: 500px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      pointer-events: auto;
+    }
+
+    .hero-tagline-blue {
+      font-size: clamp(0.85rem, 1.3vw, 1.15rem);
+      font-weight: 800;
+      color: var(--cyan-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+
+    .hero-tagline-large {
+      font-size: clamp(2.2rem, 4.2vw, 4rem);
+      font-weight: 900;
+      color: #f1f5f9;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    /* Bottom Scroll Indicator */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      pointer-events: auto;
+      user-select: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .mouse-icon {
+      width: 20px;
+      height: 32px;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      padding-top: 5px;
+    }
+
+    .mouse-wheel {
+      width: 3px;
+      height: 5px;
+      background: #ffffff;
+      border-radius: 2px;
+      animation: wheelBounce 1.8s infinite ease-in-out;
+    }
+
+    @keyframes wheelBounce {
+      0% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(8px); opacity: 0.2; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .scroll-text {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================
+       SECTION 3: OUR SERVICES (MATCHES REFERENCE TEMPLATE)
+       ========================================================== */
+    #sec-services {
+      justify-content: center;
+      align-items: center;
+      padding: 0 clamp(20px, 5vw, 80px);
+    }
+
+    .services-wrapper {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      height: 84vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    /* Ticker ribbon at top of services */
+    .services-ticker {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      gap: 32px;
+      animation: marquee 24s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .ticker-star {
+      color: var(--amber-star);
+      font-size: 0.95rem;
+    }
+
+    /* Main Services Header */
+    .services-main-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 800;
+      text-align: center;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin: 4px 0;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Center Split Body */
+    .services-split-body {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      margin: auto 0;
+    }
+
+    .services-left-content {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      pointer-events: auto;
+    }
+
+    .services-service-title {
+      font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .services-service-desc {
+      font-size: clamp(0.86rem, 1vw, 0.96rem);
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+    }
+
+    .services-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .services-check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.92);
+      font-weight: 500;
+    }
+
+    .services-check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Right Visual Stage matching reference: Laptop + Phone + Sliders + Gears */
+    .services-visual-stage {
+      position: relative;
+      width: 100%;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+    }
+
+    .stage-glow {
+      position: absolute;
+      width: 340px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(56, 189, 248, 0.22) 40%, rgba(148, 163, 184, 0.12) 70%, transparent 100%);
+      filter: blur(45px);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Floating Gears */
+    .floating-gear {
+      position: absolute;
+      z-index: 3;
+      pointer-events: none;
+      animation: gearSpin 20s linear infinite;
+    }
+
+    .gear-large {
+      width: 48px;
+      height: 48px;
+      left: 14px;
+      top: 75px;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.35));
+    }
+
+    .gear-small {
+      width: 32px;
+      height: 32px;
+      left: 48px;
+      top: 42px;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 10px rgba(148, 163, 184, 0.3));
+      animation-direction: reverse;
+      animation-duration: 14s;
+    }
+
+    @keyframes gearSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Laptop Mockup (Silver-Gray Metallic & Deep Blue) */
+    .mockup-laptop {
+      position: relative;
+      width: 360px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.85));
+      transform: perspective(1000px) rotateX(3deg);
+      transition: transform 0.4s ease;
+    }
+
+    .mockup-laptop:hover {
+      transform: perspective(1000px) rotateX(0deg) translateY(-4px);
+    }
+
+    .laptop-screen {
+      width: 310px;
+      height: 190px;
+      background: #090d16;
+      border: 6px solid #475569;
+      border-bottom: 3px solid #334155;
+      border-radius: 12px 12px 0 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 30px rgba(37, 99, 235, 0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .laptop-screen-bar {
+      height: 18px;
+      background: rgba(15, 23, 42, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 5px;
+    }
+
+    .bar-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .bar-dot.red { background: #38bdf8; }
+    .bar-dot.yellow { background: #94a3b8; }
+    .bar-dot.green { background: #60a5fa; }
+
+    .bar-title {
+      font-size: 0.58rem;
+      color: rgba(203, 213, 225, 0.65);
+      margin-left: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .laptop-screen-content {
+      flex: 1;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.35) 0%, rgba(15, 23, 42, 0.7) 50%, rgba(14, 165, 233, 0.18) 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mini-chart-card {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 8px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .mini-chart-badge {
+      font-size: 0.55rem;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.18);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .mini-chart-svg {
+      width: 100%;
+      height: 44px;
+      display: block;
+    }
+
+    .mini-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .mini-stat-card {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 6px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-stat-lbl {
+      font-size: 0.52rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .mini-stat-val {
+      font-size: 0.75rem;
+      color: #f8fafc;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .laptop-base {
+      width: 350px;
+      height: 12px;
+      background: linear-gradient(180deg, #94a3b8 0%, #475569 50%, #1e293b 100%);
+      border-radius: 0 0 10px 10px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(148, 163, 184, 0.2);
+      display: flex;
+      justify-content: center;
+    }
+
+    .laptop-notch {
+      width: 48px;
+      height: 4px;
+      background: #0f172a;
+      border-radius: 0 0 4px 4px;
+    }
+
+    /* Floating Smartphone (Silver Gray Frame + Deep Blue Screen) */
+    .mockup-phone {
+      position: absolute;
+      right: 18px;
+      bottom: 20px;
+      width: 100px;
+      height: 195px;
+      background: #0b0f19;
+      border: 4px solid #64748b;
+      border-radius: 20px;
+      z-index: 4;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(37, 99, 235, 0.45);
+      padding: 7px 5px;
+      display: flex;
+      flex-direction: column;
+      animation: floatSlow 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(1deg); }
+      100% { transform: translateY(-8px) rotate(-1deg); }
+    }
+
+    .phone-speaker {
+      width: 22px;
+      height: 3px;
+      background: #94a3b8;
+      border-radius: 3px;
+      margin: 0 auto 5px;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: linear-gradient(155deg, #1e3a8a 0%, #2563eb 50%, #0284c7 100%);
+      border-radius: 12px;
+      padding: 7px 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.35);
+    }
+
+    .phone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+    }
+
+    .phone-title {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .phone-card-hero {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(4px);
+      border-radius: 6px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .phone-widget-row {
+      display: flex;
+      gap: 4px;
+    }
+
+    .phone-mini-pill {
+      flex: 1;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    .phone-mini-pill.w60 {
+      flex: 0.6;
+    }
+
+    .phone-card-sub {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.35);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    /* Floating Sliders Widget (Silver-Gray & Cyan-Blue) */
+    .mockup-sliders-widget {
+      position: absolute;
+      right: 2px;
+      top: 45px;
+      width: 72px;
+      height: 68px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 12px;
+      z-index: 5;
+      padding: 10px 8px;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.3);
+      animation: floatAlt 4.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatAlt {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-6px); }
+    }
+
+    .slider-track-col {
+      width: 3px;
+      height: 100%;
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .slider-thumb {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 8px #0284c7;
+    }
+
+    .slider-thumb.pos-top { top: 14%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
+    .slider-thumb.pos-mid { top: 50%; background: #94a3b8; box-shadow: 0 0 8px #cbd5e1; }
+    .slider-thumb.pos-high { top: 24%; background: #60a5fa; box-shadow: 0 0 8px #60a5fa; }
+    .slider-thumb.pos-low { top: 72%; background: #e2e8f0; box-shadow: 0 0 8px #f8fafc; }
+
+    /* Bottom 4 Stats Row matching reference */
+    .services-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 16px;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      pointer-events: auto;
+      background: transparent;
+    }
+
+    .stat-strip-val {
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .stat-strip-lbl {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 6px;
+    }
+
+    /* =========================================
+       SECTION 4: PROJECTS
+       ========================================= */
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    .project-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-card:hover {
+      border-color: var(--electric-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(37, 99, 235, 0.2);
+    }
+
+    .project-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+    }
+
+    .project-desc {
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.55;
+    }
+
+    .tech-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .tech-pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ==========================================================
+       SECTION 5: TRAINING & CERTIFICATIONS (STAIRCASE TEMPLATE)
+       ========================================================== */
+    .workflow-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 84vh;
+      position: relative;
+      pointer-events: none;
+    }
+
+    .workflow-grid-lines {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .workflow-grid-line {
+      border-right: 1px dashed rgba(255, 255, 255, 0.12);
+      height: 100%;
+    }
+
+    .workflow-grid-line:last-child {
+      border-right: none;
+    }
+
+    .workflow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .workflow-header-left {
+      max-width: 620px;
+    }
+
+    .workflow-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 12px;
+      pointer-events: auto;
+    }
+
+    .workflow-badge-dot {
+      width: 7px;
+      height: 7px;
+      background: #3b82f6;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #3b82f6;
+    }
+
+    .workflow-headline {
+      font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .workflow-headline em {
+      font-style: italic;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 400;
+      color: #93c5fd;
+    }
+
+    .workflow-header-right {
+      max-width: 440px;
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Staircase Stepper Grid matching reference layout */
+    .workflow-staircase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+      margin: auto 0;
+      padding: 20px 0;
+      align-items: center;
+    }
+
+    .workflow-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .workflow-col:nth-child(1) { padding-top: 0px; }
+    .workflow-col:nth-child(2) { padding-top: 60px; }
+    .workflow-col:nth-child(3) { padding-top: 110px; }
+    .workflow-col:nth-child(4) { padding-top: 160px; }
+
+    .workflow-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 10px 8px 16px;
+      background: rgba(14, 18, 28, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 9999px;
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+      pointer-events: auto;
+      max-width: 100%;
+    }
+
+    .workflow-pill:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+      background: rgba(20, 28, 45, 0.9);
+    }
+
+    .workflow-pill-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .workflow-pill-left svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--cyan-accent);
+      flex-shrink: 0;
+    }
+
+    .workflow-pill-tag {
+      background: #ffffff;
+      color: #0b0f19;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 9999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .workflow-footer-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .workflow-footer-dot {
+      width: 6px;
+      height: 6px;
+      background: #3b82f6;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px #3b82f6;
+    }
+
+    /* =========================================
+       SECTION 6: SKILLS & STRENGTHS
+       ========================================= */
+    .skills-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .skill-category-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan-accent);
+      margin-bottom: 8px;
+    }
+
+    .pills-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-item {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      transition: all 0.2s ease;
+    }
+
+    .pill-item:hover {
+      border-color: var(--electric-blue);
+      background: rgba(37, 99, 235, 0.2);
+    }
+
+    /* =========================================
+       SECTION 7: EDUCATION & CERTIFICATIONS
+       ========================================= */
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      border-left: 2px solid var(--electric-blue);
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan-accent);
+    }
+
+    .timeline-degree {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .timeline-school {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 2px;
+    }
+
+    .timeline-score {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cyan-accent);
+      margin-top: 2px;
+    }
+
+    /* =========================================
+       SECTION 8: CONTACT
+       ========================================= */
+    .contact-card {
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .contact-links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .contact-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      word-break: break-all;
+    }
+
+    .contact-link-row:hover {
+      background: rgba(37, 99, 235, 0.25);
+      border-color: var(--electric-blue);
+      transform: translateY(-2px);
+    }
+
+    .contact-link-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--cyan-accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .contact-link-value {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.82rem;
+      text-align: right;
+    }
+
+    /* Responsive layouts */
+    @media (max-width: 960px) {
+      .section-layer {
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        text-align: center;
+      }
+      .hero-left, .hero-right {
+        align-items: center;
+        text-align: center;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .services-split-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .services-mockup-card {
+        display: none;
+      }
+      .workflow-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: left;
+      }
+      .workflow-staircase {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .workflow-col {
+        padding-top: 0 !important;
+      }
+      .workflow-grid-lines {
+        display: none;
+      }
+      .contact-link-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .contact-link-value {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .services-stats-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .workflow-staircase {
+        grid-template-columns: 1fr;
+      }
+      .workflow-container, .services-wrapper {
+        height: auto;
+        padding-top: 60px;
+      }
+    }
+
+    /* Custom sleek dark scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--electric-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Scroll Progress Line -->
+  <div id="progress-bar"></div>
+
+  <!-- Floating Navigation Capsule -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="nav-link active" data-section="0">Home</a>
+    <a href="#about" class="nav-link" data-section="1">About</a>
+    <a href="#services" class="nav-link" data-section="2">Services</a>
+    <a href="#projects" class="nav-link" data-section="3">Projects</a>
+    <a href="#training" class="nav-link" data-section="4">Training</a>
+    <a href="#skills" class="nav-link" data-section="5">Skills</a>
+    <a href="#education" class="nav-link" data-section="6">Education</a>
+    <a href="#contact" class="nav-link" data-section="7">Contact</a>
+  </nav>
+
+  <!-- Big Watermark Text in Background Layer -->
+  <div class="watermark" id="watermark">JOHN BLESSO</div>
+
+  <!-- Background Canvas for Scroll Frame Animation -->
+  <div id="canvas-container">
+    <canvas id="animation-canvas"></canvas>
+  </div>
+
+  <!-- Viewport Overlay containing all portfolio sections -->
+  <div class="viewport-overlay">
+
+    <!-- SECTION 1: HERO -->
+    <section class="section-layer active" id="sec-home">
+      <div class="hero-left">
+        <h2 class="hero-greeting">Hi I'm</h2>
+        <h1 class="hero-name-primary">John Blesso</h1>
+        <h2 class="hero-name-secondary">J J</h2>
+        <p class="hero-title-tag">Computer Science and Engineering Student</p>
+        <p class="hero-bio">
+          Hands-on training in MATLAB, machine learning, and deep learning, with working knowledge of Python, Java, C, SQL, and HTML. Expected to graduate in 2029.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#projects" class="btn-capsule primary" onclick="scrollToSection(3); return false;">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+            View Projects
+          </a>
+          <a href="#contact" class="btn-capsule" onclick="scrollToSection(7); return false;">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            Contact
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <span class="hero-tagline-blue">B.E. CSE STUDENT</span>
+        <div class="hero-tagline-large">BATCH<br>2025-2029</div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ABOUT -->
+    <section class="section-layer" id="sec-about">
+      <div class="card-glass">
+        <span class="badge-sub">ABOUT</span>
+        <h2 class="section-title">Applying Technical Skills to Practical Software</h2>
+        <p class="section-desc">
+          I am a Computer Science and Engineering student at S. A. Engineering College, Chennai, expected to graduate in 2029.
+        </p>
+        <p class="section-desc">
+          I have a keen interest in applying my technical foundation to practical software projects, tackling real-world problem formulations, and continuing to learn and grow steadily as an engineer.
+        </p>
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--cyan-accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px;">Industrial Visit</div>
+          <div style="font-size: 0.9rem; font-weight: 600; color: #fff;">Space Zone India — 2026</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: OUR SERVICES (MATCHES REFERENCE TEMPLATE) -->
+    <section class="section-layer" id="sec-services">
+      <div class="services-wrapper">
+        
+        <!-- Top Ticker Ribbon with Stars (Directly in Background) -->
+        <div class="services-ticker">
+          <div class="ticker-track">
+            <span class="ticker-item"><span class="ticker-star">✦</span> UI/UX Design</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Web Applications</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Machine Learning</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Python Development</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> MATLAB Simulation</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Deep Learning</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Java Programming</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Object-Oriented Design</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> App Building</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> SQL Databases</span>
+            <!-- Seamless loop duplicate -->
+            <span class="ticker-item"><span class="ticker-star">✦</span> UI/UX Design</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Web Applications</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Machine Learning</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Python Development</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> MATLAB Simulation</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Deep Learning</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Java Programming</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> Object-Oriented Design</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> App Building</span>
+            <span class="ticker-item"><span class="ticker-star">✦</span> SQL Databases</span>
+          </div>
+        </div>
+
+        <!-- Main Heading: Our Services (Matching Reference) -->
+        <h2 class="services-main-title">Our Services</h2>
+
+        <!-- Center Split: Left Details + Right Interactive Vector Visual Stage -->
+        <div class="services-split-body">
+          <div class="services-left-content">
+            <h3 class="services-service-title">UI/UX Design</h3>
+            <p class="services-service-desc">
+              Hands-on engineering and UI/UX design across software projects and interactive applications. Designing intuitive user flows, wireframes, and responsive web systems backed by clean architecture.
+            </p>
+            <div class="services-checklist">
+              <div class="services-check-item">
+                <span class="services-check-icon">✓</span>
+                <span>User Interface Design</span>
+              </div>
+              <div class="services-check-item">
+                <span class="services-check-icon">✓</span>
+                <span>User Experience Design</span>
+              </div>
+              <div class="services-check-item">
+                <span class="services-check-icon">✓</span>
+                <span>Mobile & Web Application Design</span>
+              </div>
+            </div>
+            <div style="margin-top: 14px;">
+              <a href="#projects" class="btn-capsule primary" onclick="scrollToSection(3); return false;">
+                LEARN MORE ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Visual Stage: Laptop + Phone + Sliders + Gears (Matching Reference) -->
+          <div class="services-visual-stage">
+            <div class="stage-glow"></div>
+
+            <!-- Floating Gears -->
+            <div class="floating-gear gear-large">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M43.5 12h13l2.2 8.4c2.2.8 4.2 1.9 6 3.2l8.2-3.4 9.2 9.2-3.4 8.2c1.3 1.8 2.4 3.8 3.2 6l8.4 2.2v13l-8.4 2.2c-.8 2.2-1.9 4.2-3.2 6l3.4 8.2-9.2 9.2-8.2-3.4c-1.8 1.3-3.8 2.4-6 3.2l-2.2 8.4h-13l-2.2-8.4c-2.2-.8-4.2-1.9-6-3.2l-8.2 3.4-9.2-9.2 3.4-8.2c-1.3-1.8-2.4-3.8-3.2-6l-8.4-2.2v-13l8.4-2.2c.8-2.2 1.9-4.2 3.2-6l-3.4-8.2 9.2-9.2 8.2 3.4c1.8-1.3 3.8-2.4 6-3.2L43.5 12z" stroke="#94a3b8" stroke-width="4" fill="rgba(148,163,184,0.08)"/>
+                <circle cx="50" cy="50" r="14" stroke="#38bdf8" stroke-width="4" fill="rgba(56,189,248,0.06)"/>
+              </svg>
+            </div>
+            <div class="floating-gear gear-small">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M43.5 12h13l2.2 8.4c2.2.8 4.2 1.9 6 3.2l8.2-3.4 9.2 9.2-3.4 8.2c1.3 1.8 2.4 3.8 3.2 6l8.4 2.2v13l-8.4 2.2c-.8 2.2-1.9 4.2-3.2 6l3.4 8.2-9.2 9.2-8.2-3.4c-1.8 1.3-3.8 2.4-6 3.2l-2.2 8.4h-13l-2.2-8.4c-2.2-.8-4.2-1.9-6-3.2l-8.2 3.4-9.2-9.2 3.4-8.2c-1.3-1.8-2.4-3.8-3.2-6l-8.4-2.2v-13l8.4-2.2c.8-2.2 1.9-4.2 3.2-6l-3.4-8.2 9.2-9.2 8.2 3.4c1.8-1.3 3.8-2.4 6-3.2L43.5 12z" stroke="#64748b" stroke-width="5" fill="rgba(100,116,139,0.06)"/>
+                <circle cx="50" cy="50" r="13" stroke="#60a5fa" stroke-width="5"/>
+              </svg>
+            </div>
+
+            <!-- Laptop Mockup -->
+            <div class="mockup-laptop">
+              <div class="laptop-screen">
+                <div class="laptop-screen-bar">
+                  <span class="bar-dot red"></span>
+                  <span class="bar-dot yellow"></span>
+                  <span class="bar-dot green"></span>
+                  <span class="bar-title">UI/UX & ML Analytics</span>
+                </div>
+                <div class="laptop-screen-content">
+                  <div class="mini-chart-card">
+                    <div class="mini-chart-header">
+                      <span>Model Convergence</span>
+                      <span class="mini-chart-badge">98.4%</span>
+                    </div>
+                    <svg class="mini-chart-svg" viewBox="0 0 200 60">
+                      <defs>
+                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45"/>
+                          <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,45 Q30,15 60,32 T120,18 T160,26 T200,8 L200,60 L0,60 Z" fill="url(#chartGrad)"/>
+                      <path d="M0,45 Q30,15 60,32 T120,18 T160,26 T200,8" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+                    </svg>
+                  </div>
+                  <div class="mini-cards-grid">
+                    <div class="mini-stat-card">
+                      <span class="mini-stat-lbl">Epochs</span>
+                      <span class="mini-stat-val">120/120</span>
+                    </div>
+                    <div class="mini-stat-card">
+                      <span class="mini-stat-lbl">Latency</span>
+                      <span class="mini-stat-val">12ms</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="laptop-base">
+                <div class="laptop-notch"></div>
+              </div>
+            </div>
+
+            <!-- Floating Smartphone -->
+            <div class="mockup-phone">
+              <div class="phone-speaker"></div>
+              <div class="phone-screen">
+                <div class="phone-header">
+                  <span class="phone-title">UI/UX</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </div>
+                <div class="phone-card-hero"></div>
+                <div class="phone-widget-row">
+                  <div class="phone-mini-pill"></div>
+                  <div class="phone-mini-pill w60"></div>
+                </div>
+                <div class="phone-card-sub"></div>
+              </div>
+            </div>
+
+            <!-- Floating Sliders Widget -->
+            <div class="mockup-sliders-widget">
+              <div class="slider-track-col"><div class="slider-thumb pos-top"></div></div>
+              <div class="slider-track-col"><div class="slider-thumb pos-mid"></div></div>
+              <div class="slider-track-col"><div class="slider-thumb pos-high"></div></div>
+              <div class="slider-track-col"><div class="slider-thumb pos-low"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom 4 Stats Strip matching reference layout with verified metrics -->
+        <div class="services-stats-strip">
+          <div>
+            <div class="stat-strip-val">7.03</div>
+            <div class="stat-strip-lbl">B.E. CSE CGPA</div>
+          </div>
+          <div>
+            <div class="stat-strip-val">8+</div>
+            <div class="stat-strip-lbl">Certifications & Onramps</div>
+          </div>
+          <div>
+            <div class="stat-strip-val">5</div>
+            <div class="stat-strip-lbl">Programming Languages</div>
+          </div>
+          <div>
+            <div class="stat-strip-val">2029</div>
+            <div class="stat-strip-lbl">Graduation Year</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: PROJECTS -->
+    <section class="section-layer" id="sec-projects">
+      <div class="projects-container">
+        
+        <!-- Project 1: InfraShield AI -->
+        <div class="project-card">
+          <div>
+            <span class="badge-tag">Prototype / Decision-Support</span>
+            <h3 class="project-name">InfraShield AI</h3>
+            <div style="font-size: 0.8rem; color: var(--cyan-accent); font-weight: 600; margin-bottom: 6px;">Explainable Infrastructure Resilience Simulator</div>
+          </div>
+          <p class="project-desc">
+            A preparedness decision-support prototype that simulates flood impacts across connected roads, power, water, and hospitals. Models dependency cascades and emergency access, and compares budget-aware interventions.
+          </p>
+          <p class="project-desc">
+            Uses deterministic calculations, with an optional LLM for scenario parsing and explanations.
+          </p>
+          <div class="tech-pill-group">
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">NetworkX</span>
+            <span class="tech-pill">Leaflet</span>
+            <span class="tech-pill">PostgreSQL/PostGIS</span>
+            <span class="tech-pill">OpenStreetMap</span>
+          </div>
+        </div>
+
+        <!-- Project 2: College Xerox Assisting Website -->
+        <div class="project-card">
+          <div>
+            <span class="badge-tag concept">Project Concept & Requirements</span>
+            <h3 class="project-name">College Xerox Assisting Website</h3>
+            <div style="font-size: 0.8rem; color: #fbbf24; font-weight: 600; margin-bottom: 6px;">Student Print-Ordering Platform Concept</div>
+          </div>
+          <p class="project-desc">
+            A project concept and comprehensive system requirements specification for a student print-ordering platform.
+          </p>
+          <p class="project-desc">
+            Described features include uploading PDFs or images, choosing print options with price estimates, reserving collection slots, paying by UPI or card, and receiving a queue number.
+          </p>
+          <p class="project-desc" style="font-size: 0.82rem; color: rgba(255,255,255,0.7);">
+            Operator and admin requirements cover order status, pricing, slot management, and rules to prevent duplicate orders and queue numbers.
+          </p>
+          <div class="tech-pill-group">
+            <span class="tech-pill">System Requirements</span>
+            <span class="tech-pill">Workflow Modeling</span>
+            <span class="tech-pill">Queue Rules</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: TRAINING & CERTIFICATIONS (STAIRCASE TEMPLATE) -->
+    <section class="section-layer" id="sec-training">
+      <div class="workflow-container">
+        
+        <!-- Faint vertical dashed guidelines matching reference template -->
+        <div class="workflow-grid-lines">
+          <div class="workflow-grid-line"></div>
+          <div class="workflow-grid-line"></div>
+          <div class="workflow-grid-line"></div>
+          <div class="workflow-grid-line"></div>
+        </div>
+
+        <!-- Top Header: Badge + Headline + Description (Strictly John's Given Data) -->
+        <div class="workflow-header">
+          <div class="workflow-header-left">
+            <div class="workflow-badge">
+              <span class="workflow-badge-dot"></span>
+              Training & Certifications
+            </div>
+            <h2 class="workflow-headline">
+              Hands-on <em>technical</em> training across machine learning and software systems.
+            </h2>
+          </div>
+          <div class="workflow-header-right">
+            Hands-on training in MATLAB, machine learning, and deep learning, with working knowledge of Python, Java, C, SQL, and HTML. Certified in Java (Basic) by HackerRank and Basics of Python by Infosys Springboard, alongside MathWorks Onramps.
+          </div>
+        </div>
+
+        <!-- Stepped Timeline Staircase with John's Certifications & MathWorks Onramps -->
+        <div class="workflow-staircase">
+          <!-- Column 1 -->
+          <div class="workflow-col">
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+                Java (Basic)
+              </span>
+              <span class="workflow-pill-tag">HackerRank</span>
+            </div>
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Basics of Python
+              </span>
+              <span class="workflow-pill-tag">Infosys</span>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="workflow-col">
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+                MATLAB Onramp
+              </span>
+              <span class="workflow-pill-tag">MathWorks</span>
+            </div>
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                ML Onramp
+              </span>
+              <span class="workflow-pill-tag">MathWorks</span>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="workflow-col">
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>
+                DL Onramp
+              </span>
+              <span class="workflow-pill-tag">MathWorks</span>
+            </div>
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>
+                OOP Onramp
+              </span>
+              <span class="workflow-pill-tag">MathWorks</span>
+            </div>
+          </div>
+
+          <!-- Column 4 -->
+          <div class="workflow-col">
+            <div class="workflow-pill">
+              <span class="workflow-pill-left">
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                App Building
+              </span>
+              <span class="workflow-pill-tag">MathWorks</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Narrative Note (Strictly John's Given Data) -->
+        <div class="workflow-footer-note">
+          <span class="workflow-footer-dot"></span>
+          <span>HackerRank ID: ACA825383D4B · LearnTube.ai ID: DJA-B-1-2547798-0 · Infosys Springboard · MathWorks Onramps · Industrial Visit: Space Zone India (2026).</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: SKILLS & STRENGTHS -->
+    <section class="section-layer" id="sec-skills">
+      <div class="card-glass" style="max-width: 680px;">
+        <span class="badge-sub">COMPETENCIES</span>
+        <h2 class="section-title">Skills & Strengths</h2>
+
+        <div class="skills-layout">
+          <div>
+            <div class="skill-category-title">Programming Languages</div>
+            <div class="pills-cloud">
+              <span class="pill-item">Python</span>
+              <span class="pill-item">Java</span>
+              <span class="pill-item">C</span>
+              <span class="pill-item">SQL</span>
+              <span class="pill-item">HTML</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="skill-category-title">Technical Domains</div>
+            <div class="pills-cloud">
+              <span class="pill-item">MATLAB</span>
+              <span class="pill-item">Machine Learning</span>
+              <span class="pill-item">Deep Learning</span>
+              <span class="pill-item">Object-Oriented Programming</span>
+              <span class="pill-item">App Building</span>
+              <span class="pill-item">Importing Data from Multiple Files</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="skill-category-title">Core Strengths</div>
+            <div class="pills-cloud">
+              <span class="pill-item">Problem Solving</span>
+              <span class="pill-item">Critical Thinking</span>
+              <span class="pill-item">Creativity</span>
+              <span class="pill-item">Resourcefulness</span>
+              <span class="pill-item">Time Management</span>
+              <span class="pill-item">Accountability</span>
+              <span class="pill-item">Organization</span>
+              <span class="pill-item">Flexibility</span>
+              <span class="pill-item">Stress Management</span>
+              <span class="pill-item">Growth Mindset</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: EDUCATION & CERTIFICATIONS -->
+    <section class="section-layer" id="sec-education">
+      <div class="card-glass" style="max-width: 680px;">
+        <span class="badge-sub">ACADEMICS & CREDENTIALS</span>
+        <h2 class="section-title">Education & Certifications</h2>
+
+        <div style="margin-bottom: 20px;">
+          <div class="skill-category-title" style="margin-bottom: 12px;">Education</div>
+          <div class="timeline-list">
+            <div class="timeline-item">
+              <div class="timeline-degree">B.E., Computer Science and Engineering</div>
+              <div class="timeline-school">S. A. Engineering College, Chennai — Expected 2029</div>
+              <div class="timeline-score">CGPA: 7.03</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-degree">Higher Secondary (12th)</div>
+              <div class="timeline-school">Nazareth School — 2025</div>
+              <div class="timeline-score">64.8%</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-degree">Secondary (10th)</div>
+              <div class="timeline-school">Nazareth School — 2023</div>
+              <div class="timeline-score">69.8%</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px;">
+          <div class="skill-category-title" style="margin-bottom: 12px;">Certifications & Credentials</div>
+          <div class="timeline-list">
+            <div class="timeline-item">
+              <div class="timeline-degree">Java (Basic) Skill Certification</div>
+              <div class="timeline-school">HackerRank — Sep 2026 · Credential ID: <span style="color: var(--cyan-accent); font-family: monospace;">ACA825383D4B</span></div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px;">
+                Passed the HackerRank skill certification test for Java (Basic), demonstrating core Java programming skills.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-degree">Basics of Python</div>
+              <div class="timeline-school">Infosys Springboard — Feb 2026</div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px;">
+                Completed the Basics of Python course from Infosys Springboard, covering Python fundamentals including variables, data types, control flow, functions and data structures.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-degree">Python Assessment</div>
+              <div class="timeline-school">LearnTube.ai — May 2026 · Credential ID: <span style="color: var(--cyan-accent); font-family: monospace;">DJA-B-1-2547798-0</span></div>
+              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px;">
+                Successfully completed the Python Assessment from LearnTube.ai.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-degree">MathWorks Onramp Certifications (6)</div>
+              <div class="timeline-school">MathWorks — July 2026</div>
+              <div style="font-size: 0.78rem; color: var(--cyan-accent); margin-top: 3px;">
+                MATLAB, Machine Learning, Deep Learning, Object-Oriented Programming, App Building, Import Data from Multiple Files
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: CONTACT -->
+    <section class="section-layer" id="sec-contact">
+      <div class="card-glass contact-card">
+        <span class="badge-sub">GET IN TOUCH</span>
+        <h2 class="section-title">Contact</h2>
+        <p class="section-desc">
+          Feel free to reach out via email or connect with me directly on LinkedIn and GitHub.
+        </p>
+
+        <div class="contact-links-grid">
+          <a href="mailto:johnblesso73@gmail.com" class="contact-link-row">
+            <span class="contact-link-label">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              Email
+            </span>
+            <span class="contact-link-value">johnblesso73@gmail.com</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/john-blesso-599727434?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+            <span class="contact-link-label">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LinkedIn
+            </span>
+            <span class="contact-link-value">john-blesso-599727434</span>
+          </a>
+
+          <a href="https://github.com/johnblesso73-sudo" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+            <span class="contact-link-label">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub
+            </span>
+            <span class="contact-link-value">johnblesso73-sudo</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Bottom Scroll Down Indicator -->
+  <div class="scroll-indicator" id="scrollIndicator" onclick="scrollToSection(1)">
+    <div class="mouse-icon">
+      <div class="mouse-wheel"></div>
+    </div>
+    <span class="scroll-text">SCROLL DOWN</span>
+  </div>
+
+  <!-- Physical scroll track to provide scroll length -->
+  <div id="scroll-track"></div>
+
+  <script>
+    (function() {
+      const TOTAL_FRAMES = 240;
+      const canvas = document.getElementById('animation-canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const watermark = document.getElementById('watermark');
+      const progressBar = document.getElementById('progress-bar');
+      const scrollIndicator = document.getElementById('scrollIndicator');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sectionLayers = [
+        document.getElementById('sec-home'),
+        document.getElementById('sec-about'),
+        document.getElementById('sec-services'),
+        document.getElementById('sec-projects'),
+        document.getElementById('sec-training'),
+        document.getElementById('sec-skills'),
+        document.getElementById('sec-education'),
+        document.getElementById('sec-contact')
+      ];
+
+      // Array to cache HTMLImageElements
+      const images = new Array(TOTAL_FRAMES);
+      let targetProgress = 0;
+      let currentProgress = 0;
+      let currentlyDrawnFrame = -1;
+      let isCanvasReady = false;
+
+      // Padded filename generator: ezgif-frame-001.png to ezgif-frame-240.png
+      function getFrameUrl(index) {
+        const num = String(index + 1).padStart(3, '0');
+        return `ezgif-frame-${num}.png`;
+      }
+
+      // High-DPI canvas resizer
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+
+        isCanvasReady = true;
+        const activeFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+        renderFrame(activeFrame, true);
+      }
+
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+
+      // Draw image centered and contained with seamless pure black fill
+      function drawImageContained(img) {
+        if (!img || !img.complete || img.naturalWidth === 0) return false;
+
+        const cw = canvas.width;
+        const ch = canvas.height;
+        const nw = img.naturalWidth || 1280;
+        const nh = img.naturalHeight || 720;
+        const imgRatio = nw / nh;
+        const canvasRatio = cw / ch;
+
+        let dw, dh, dx, dy;
+
+        if (canvasRatio > imgRatio) {
+          dh = ch;
+          dw = dh * imgRatio;
+        } else {
+          dw = cw;
+          dh = dw / imgRatio;
+        }
+
+        dx = (cw - dw) * 0.5;
+        dy = (ch - dh) * 0.5;
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.drawImage(img, dx, dy, dw, dh);
+        return true;
+      }
+
+      // Render frame with nearest-neighbor fallback
+      function renderFrame(targetIndex, force = false) {
+        if (!isCanvasReady) return;
+        targetIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, targetIndex));
+
+        if (!force && targetIndex === currentlyDrawnFrame) return;
+
+        // 1. Direct hit
+        const exact = images[targetIndex];
+        if (exact && exact.complete && exact.naturalWidth > 0) {
+          drawImageContained(exact);
+          currentlyDrawnFrame = targetIndex;
+          return;
+        }
+
+        // 2. Search closest loaded frame as temporary fallback
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          const prev = targetIndex - offset;
+          if (prev >= 0 && images[prev] && images[prev].complete && images[prev].naturalWidth > 0) {
+            drawImageContained(images[prev]);
+            currentlyDrawnFrame = prev;
+            return;
+          }
+          const next = targetIndex + offset;
+          if (next < TOTAL_FRAMES && images[next] && images[next].complete && images[next].naturalWidth > 0) {
+            drawImageContained(images[next]);
+            currentlyDrawnFrame = next;
+            return;
+          }
+        }
+      }
+
+      // Scroll progress calculator
+      function updateScrollProgress() {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollHeight > 0) {
+          targetProgress = Math.max(0, Math.min(1, window.scrollY / scrollHeight));
+        } else {
+          targetProgress = 0;
+        }
+      }
+
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+      // Update visible sections & active navigation based on progress
+      function updateSectionVisibility(progress) {
+        // 8 Sections across 0.0 to 1.0:
+        // 0: Home      (0.00 - 0.12)
+        // 1: About     (0.12 - 0.24)
+        // 2: Services  (0.24 - 0.38)
+        // 3: Projects  (0.38 - 0.52)
+        // 4: Training  (0.52 - 0.66)
+        // 5: Skills    (0.66 - 0.78)
+        // 6: Education (0.78 - 0.89)
+        // 7: Contact   (0.89 - 1.00)
+        let activeIdx = 0;
+        if (progress < 0.12) activeIdx = 0;
+        else if (progress < 0.24) activeIdx = 1;
+        else if (progress < 0.38) activeIdx = 2;
+        else if (progress < 0.52) activeIdx = 3;
+        else if (progress < 0.66) activeIdx = 4;
+        else if (progress < 0.78) activeIdx = 5;
+        else if (progress < 0.89) activeIdx = 6;
+        else activeIdx = 7;
+
+        sectionLayers.forEach((layer, idx) => {
+          if (idx === activeIdx) {
+            layer.classList.add('active');
+          } else {
+            layer.classList.remove('active');
+          }
+        });
+
+        navLinks.forEach((link, idx) => {
+          if (idx === activeIdx) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+
+        // Top progress line
+        progressBar.style.width = (progress * 100) + '%';
+
+        // Hide bottom scroll indicator when past first section
+        if (progress > 0.09) {
+          scrollIndicator.style.opacity = '0';
+          scrollIndicator.style.pointerEvents = 'none';
+        } else {
+          scrollIndicator.style.opacity = '1';
+          scrollIndicator.style.pointerEvents = 'auto';
+        }
+
+        // Dynamic watermark word
+        const words = ['JOHN BLESSO', 'ABOUT', 'SERVICES', 'PROJECTS', 'TRAINING', 'SKILLS', 'EDUCATION', 'CONTACT'];
+        watermark.textContent = words[activeIdx];
+      }
+
+      // Smooth Animation Lerp Loop
+      function tick() {
+        const diff = targetProgress - currentProgress;
+        if (Math.abs(diff) > 0.0001) {
+          currentProgress += diff * 0.16;
+        } else {
+          currentProgress = targetProgress;
+        }
+
+        const currentFrameIndex = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+        if (currentFrameIndex !== currentlyDrawnFrame || (images[currentFrameIndex] && images[currentFrameIndex].complete && currentlyDrawnFrame !== currentFrameIndex)) {
+          renderFrame(currentFrameIndex);
+        }
+
+        updateSectionVisibility(currentProgress);
+        requestAnimationFrame(tick);
+      }
+
+      // Preload all 240 images
+      function preloadImages() {
+        // Step 1: Immediately request frame 0
+        const frame0 = new Image();
+        frame0.src = getFrameUrl(0);
+        frame0.onload = () => {
+          images[0] = frame0;
+          renderFrame(0, true);
+        };
+        images[0] = frame0;
+
+        // Step 2: Load keyframe stride for instantaneous scrubbing everywhere
+        const stride = 5;
+        for (let i = stride; i < TOTAL_FRAMES; i += stride) {
+          const img = new Image();
+          img.src = getFrameUrl(i);
+          img.onload = () => {
+            const activeFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+            if (activeFrame === i) renderFrame(i, true);
+          };
+          images[i] = img;
+        }
+
+        // Step 3: Stream all intermediate frames
+        for (let i = 1; i < TOTAL_FRAMES; i++) {
+          if (i % stride === 0) continue;
+          const img = new Image();
+          img.src = getFrameUrl(i);
+          img.onload = () => {
+            const activeFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+            if (activeFrame === i) renderFrame(i, true);
+          };
+          images[i] = img;
+        }
+      }
+
+      // Smooth section jump helper
+      window.scrollToSection = function(sectionIdx) {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const targets = [0.0, 0.18, 0.31, 0.45, 0.59, 0.72, 0.84, 1.0];
+        const targetScroll = targets[sectionIdx] * scrollHeight;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      };
+
+      // Navigation click listeners
+      navLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const sIdx = parseInt(link.getAttribute('data-section'), 10);
+          scrollToSection(sIdx);
+        });
+      });
+
+      // Initialize
+      resizeCanvas();
+      updateScrollProgress();
+      preloadImages();
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
