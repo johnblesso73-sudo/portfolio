@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>John Blesso J J — Portfolio</title>
-  
+
   <!-- Modern Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
 
   <style>
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -419,9 +424,20 @@
     }
 
     @keyframes wheelBounce {
-      0% { transform: translateY(0); opacity: 1; }
-      50% { transform: translateY(8px); opacity: 0.2; }
-      100% { transform: translateY(0); opacity: 1; }
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateY(8px);
+        opacity: 0.2;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .scroll-text {
@@ -433,507 +449,393 @@
     }
 
     /* ==========================================================
-       SECTION 3: OUR SERVICES (MATCHES REFERENCE TEMPLATE)
+       CIRCUIT CONNECTING BADGES (ALL 8 SECTIONS)
        ========================================================== */
-    #sec-services {
-      justify-content: center;
-      align-items: center;
-      padding: 0 clamp(20px, 5vw, 80px);
-    }
-
-    .services-wrapper {
-      width: 100%;
-      max-width: 1140px;
-      margin: 0 auto;
-      height: 84vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      pointer-events: none;
-      background: transparent;
-    }
-
-    /* Ticker ribbon at top of services */
-    .services-ticker {
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 10px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      background: transparent;
-      position: relative;
-      z-index: 2;
-    }
-
-    .ticker-track {
-      display: inline-flex;
-      gap: 32px;
-      animation: marquee 24s linear infinite;
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .ticker-item {
+    .heading-circuit-badge {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .ticker-star {
-      color: var(--amber-star);
-      font-size: 0.95rem;
-    }
-
-    /* Main Services Header */
-    .services-main-title {
-      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
-      font-weight: 800;
-      text-align: center;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-      margin: 4px 0;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-    }
-
-    /* Center Split Body */
-    .services-split-body {
-      display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: 36px;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-      margin: auto 0;
-    }
-
-    .services-left-content {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      pointer-events: auto;
-    }
-
-    .services-service-title {
-      font-size: clamp(1.8rem, 2.6vw, 2.5rem);
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-
-    .services-service-desc {
-      font-size: clamp(0.86rem, 1vw, 0.96rem);
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 1.6;
-    }
-
-    .services-checklist {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .services-check-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.92rem;
-      color: rgba(255, 255, 255, 0.92);
-      font-weight: 500;
-    }
-
-    .services-check-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 0.7rem;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-
-    /* Right Visual Stage matching reference: Laptop + Phone + Sliders + Gears */
-    .services-visual-stage {
-      position: relative;
-      width: 100%;
-      height: 340px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: auto;
-    }
-
-    .stage-glow {
-      position: absolute;
-      width: 340px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(56, 189, 248, 0.22) 40%, rgba(148, 163, 184, 0.12) 70%, transparent 100%);
-      filter: blur(45px);
-      border-radius: 50%;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Floating Gears */
-    .floating-gear {
-      position: absolute;
-      z-index: 3;
-      pointer-events: none;
-      animation: gearSpin 20s linear infinite;
-    }
-
-    .gear-large {
-      width: 48px;
-      height: 48px;
-      left: 14px;
-      top: 75px;
-      opacity: 0.9;
-      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.35));
-    }
-
-    .gear-small {
-      width: 32px;
-      height: 32px;
-      left: 48px;
-      top: 42px;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 10px rgba(148, 163, 184, 0.3));
-      animation-direction: reverse;
-      animation-duration: 14s;
-    }
-
-    @keyframes gearSpin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Laptop Mockup (Silver-Gray Metallic & Deep Blue) */
-    .mockup-laptop {
-      position: relative;
-      width: 360px;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.85));
-      transform: perspective(1000px) rotateX(3deg);
-      transition: transform 0.4s ease;
-    }
-
-    .mockup-laptop:hover {
-      transform: perspective(1000px) rotateX(0deg) translateY(-4px);
-    }
-
-    .laptop-screen {
-      width: 310px;
-      height: 190px;
-      background: #090d16;
-      border: 6px solid #475569;
-      border-bottom: 3px solid #334155;
-      border-radius: 12px 12px 0 0;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 30px rgba(37, 99, 235, 0.3);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .laptop-screen-bar {
-      height: 18px;
-      background: rgba(15, 23, 42, 0.96);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      gap: 5px;
-    }
-
-    .bar-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
-    .bar-dot.red { background: #38bdf8; }
-    .bar-dot.yellow { background: #94a3b8; }
-    .bar-dot.green { background: #60a5fa; }
-
-    .bar-title {
-      font-size: 0.58rem;
-      color: rgba(203, 213, 225, 0.65);
-      margin-left: 8px;
+      gap: 10px;
+      margin-bottom: 14px;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .laptop-screen-content {
-      flex: 1;
-      padding: 10px;
-      background: linear-gradient(135deg, rgba(30, 58, 138, 0.35) 0%, rgba(15, 23, 42, 0.7) 50%, rgba(14, 165, 233, 0.18) 100%);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .heading-circuit-port {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00e5ff;
+      box-shadow: 0 0 10px #38bdf8, 0 0 20px rgba(56, 189, 248, 0.75);
+      border: 1.5px solid #e0f2fe;
+      animation: circuitPortPulse 2s infinite ease-in-out;
     }
 
-    .mini-chart-card {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      border-radius: 8px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    @keyframes circuitPortPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 10px #38bdf8, 0 0 20px rgba(56, 189, 248, 0.75); }
+      50% { transform: scale(1.25); box-shadow: 0 0 16px #60a5fa, 0 0 28px rgba(59, 130, 246, 0.95); }
     }
 
-    .mini-chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.6rem;
-      font-weight: 700;
-      color: #f1f5f9;
-    }
-
-    .mini-chart-badge {
-      font-size: 0.55rem;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.18);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 1px 5px;
-      border-radius: 4px;
-    }
-
-    .mini-chart-svg {
-      width: 100%;
-      height: 44px;
-      display: block;
-    }
-
-    .mini-cards-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .mini-stat-card {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 6px;
-      padding: 6px 8px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .mini-stat-lbl {
-      font-size: 0.52rem;
-      color: #94a3b8;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .mini-stat-val {
-      font-size: 0.75rem;
-      color: #f8fafc;
-      font-weight: 700;
-      margin-top: 1px;
-    }
-
-    .laptop-base {
-      width: 350px;
-      height: 12px;
-      background: linear-gradient(180deg, #94a3b8 0%, #475569 50%, #1e293b 100%);
-      border-radius: 0 0 10px 10px;
-      position: relative;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(148, 163, 184, 0.2);
-      display: flex;
-      justify-content: center;
-    }
-
-    .laptop-notch {
-      width: 48px;
-      height: 4px;
-      background: #0f172a;
-      border-radius: 0 0 4px 4px;
-    }
-
-    /* Floating Smartphone (Silver Gray Frame + Deep Blue Screen) */
-    .mockup-phone {
-      position: absolute;
-      right: 18px;
-      bottom: 20px;
-      width: 100px;
-      height: 195px;
-      background: #0b0f19;
-      border: 4px solid #64748b;
-      border-radius: 20px;
-      z-index: 4;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(37, 99, 235, 0.45);
-      padding: 7px 5px;
-      display: flex;
-      flex-direction: column;
-      animation: floatSlow 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatSlow {
-      0% { transform: translateY(0px) rotate(1deg); }
-      100% { transform: translateY(-8px) rotate(-1deg); }
-    }
-
-    .phone-speaker {
-      width: 22px;
-      height: 3px;
-      background: #94a3b8;
-      border-radius: 3px;
-      margin: 0 auto 5px;
-    }
-
-    .phone-screen {
-      flex: 1;
-      background: linear-gradient(155deg, #1e3a8a 0%, #2563eb 50%, #0284c7 100%);
-      border-radius: 12px;
-      padding: 7px 5px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.35);
-    }
-
-    .phone-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #ffffff;
-    }
-
-    .phone-title {
-      font-size: 0.62rem;
+    .heading-circuit-tag {
+      font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.16em;
+      color: #38bdf8;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
     }
 
-    .phone-card-hero {
-      background: rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(4px);
-      border-radius: 6px;
-      height: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+    .heading-circuit-line {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #38bdf8 0%, rgba(59, 130, 246, 0.4) 60%, transparent 100%);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
     }
 
-    .phone-widget-row {
-      display: flex;
-      gap: 4px;
-    }
-
-    .phone-mini-pill {
-      flex: 1;
-      height: 7px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-    }
-
-    .phone-mini-pill.w60 {
-      flex: 0.6;
-    }
-
-    .phone-card-sub {
-      flex: 1;
-      background: rgba(15, 23, 42, 0.35);
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-
-    /* Floating Sliders Widget (Silver-Gray & Cyan-Blue) */
-    .mockup-sliders-widget {
-      position: absolute;
-      right: 2px;
-      top: 45px;
-      width: 72px;
-      height: 68px;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      border-radius: 12px;
-      z-index: 5;
-      padding: 10px 8px;
-      display: flex;
-      justify-content: space-between;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.3);
-      animation: floatAlt 4.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatAlt {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-6px); }
-    }
-
-    .slider-track-col {
-      width: 3px;
-      height: 100%;
-      background: rgba(148, 163, 184, 0.25);
-      border-radius: 3px;
+    /* ==========================================================
+       SECTION 3: THE JOURNEY WITHIN (CLEAN 3D MAC FOLDER STACK)
+       ========================================================== */
+    #sec-journey {
+      justify-content: center;
+      align-items: center;
+      padding: 0 clamp(20px, 5vw, 80px);
       position: relative;
+      background: radial-gradient(circle at 10% 90%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
     }
 
-    .slider-thumb {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+    .journey-clean-stage {
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      min-height: 82vh;
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: clamp(36px, 5vw, 80px);
+      align-items: center;
+      position: relative;
+      pointer-events: none;
+    }
+
+    /* Left Column - Minimalist Apple Typography */
+    .journey-clean-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .journey-clean-headline {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+      font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .headline-blue {
+      color: #3b82f6;
+      text-shadow: 0 0 30px rgba(59, 130, 246, 0.75), 0 0 60px rgba(37, 99, 235, 0.45);
+      display: inline-block;
+    }
+
+    .journey-clean-desc {
+      font-size: clamp(0.92rem, 1.1vw, 1.04rem);
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.65;
+      max-width: 460px;
+    }
+
+    /* Glowing Pill Capsule matching "Now available on Mac." */
+    .journey-clean-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 24px;
+      background: rgba(10, 16, 32, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid #3b82f6;
+      border-radius: 9999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), inset 0 0 14px rgba(59, 130, 246, 0.2);
+      width: fit-content;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .journey-clean-capsule:hover {
+      border-color: #60a5fa;
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.65), inset 0 0 18px rgba(56, 189, 248, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .capsule-blue-dot {
       width: 9px;
       height: 9px;
       border-radius: 50%;
       background: #38bdf8;
-      box-shadow: 0 0 8px #0284c7;
+      box-shadow: 0 0 12px #38bdf8, 0 0 20px #0284c7;
+      animation: blueDotPulse 2s infinite ease-in-out;
     }
 
-    .slider-thumb.pos-top { top: 14%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
-    .slider-thumb.pos-mid { top: 50%; background: #94a3b8; box-shadow: 0 0 8px #cbd5e1; }
-    .slider-thumb.pos-high { top: 24%; background: #60a5fa; box-shadow: 0 0 8px #60a5fa; }
-    .slider-thumb.pos-low { top: 72%; background: #e2e8f0; box-shadow: 0 0 8px #f8fafc; }
-
-    /* Bottom 4 Stats Row matching reference */
-    .services-stats-strip {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    .journey-clean-stats {
+      display: flex;
+      align-items: center;
       gap: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      padding-top: 16px;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      pointer-events: auto;
-      background: transparent;
-    }
-
-    .stat-strip-val {
-      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1;
-    }
-
-    .stat-strip-lbl {
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
       margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      max-width: 460px;
+    }
+
+    .clean-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .clean-stat-num {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .clean-stat-lbl {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clean-stat-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Right Side - 3D Angled Mac Display with Cascade Deck */
+    .journey-clean-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: auto;
+      z-index: 2;
+      perspective: 1400px;
+    }
+
+    .mac-display-frame {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      background: linear-gradient(145deg, #181b24 0%, #0d0f15 100%);
+      border-radius: 20px;
+      padding: 16px;
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      box-shadow: -25px 35px 70px rgba(0, 0, 0, 0.95), 0 0 60px rgba(37, 99, 235, 0.22);
+      transform: rotateY(-9deg) rotateX(4deg);
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mac-display-frame:hover {
+      transform: rotateY(-4deg) rotateX(2deg) translateY(-4px);
+    }
+
+    .mac-screen-inner {
+      position: relative;
+      width: 100%;
+      background: radial-gradient(circle at 75% 30%, rgba(29, 78, 216, 0.4) 0%, rgba(10, 20, 48, 0.95) 50%, #060913 100%);
+      border-radius: 14px;
+      padding: 30px 20px 24px 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .cascade-blue-glow {
+      position: absolute;
+      top: 10%;
+      right: 10%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(37, 99, 235, 0.18) 45%, transparent 70%);
+      filter: blur(40px);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Stepped Echelon Deck matching reference */
+    .cascade-deck {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+    }
+
+    /* Base folder tab cards */
+    .cascade-folder-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(23, 62, 142, 0.88) 0%, rgba(12, 30, 72, 0.92) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      border-radius: 12px 12px 6px 6px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(191, 219, 254, 0.45), 0 8px 20px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top: -12px;
+    }
+
+    .cascade-folder-card:first-child {
+      margin-top: 0;
+    }
+
+    /* Diagonal Staggered Echelon Offset matching reference image */
+    .cascade-folder-card.card-step-6 {
+      width: 68%;
+      margin-left: auto;
+      z-index: 1;
+      opacity: 0.82;
+      background: linear-gradient(180deg, rgba(30, 75, 170, 0.92) 0%, rgba(14, 34, 84, 0.94) 100%);
+      border-color: rgba(147, 197, 253, 0.6);
+    }
+    .cascade-folder-card.card-step-5 {
+      width: 75%;
+      margin-left: auto;
+      z-index: 2;
+      opacity: 0.86;
+    }
+    .cascade-folder-card.card-step-4 {
+      width: 82%;
+      margin-left: auto;
+      z-index: 3;
+      opacity: 0.9;
+    }
+    .cascade-folder-card.card-step-3 {
+      width: 88%;
+      margin-left: auto;
+      z-index: 4;
+      opacity: 0.94;
+    }
+    .cascade-folder-card.card-step-2 {
+      width: 94%;
+      margin-left: auto;
+      z-index: 5;
+      opacity: 0.97;
+    }
+    .cascade-folder-card.card-step-1 {
+      width: 100%;
+      z-index: 6;
+      opacity: 1;
+      border-radius: 14px 14px 14px 14px;
+      background: linear-gradient(180deg, rgba(20, 52, 122, 0.95) 0%, rgba(9, 22, 54, 0.98) 100%);
+      border-color: rgba(59, 130, 246, 0.65);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 12px 30px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .cascade-folder-card:hover {
+      transform: translateY(-5px) scale(1.02) !important;
+      z-index: 20 !important;
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.96) 0%, rgba(15, 35, 90, 0.98) 100%) !important;
+      border-color: #38bdf8 !important;
+      box-shadow: inset 0 1px 0 #ffffff, 0 16px 36px rgba(37, 99, 235, 0.5) !important;
+      opacity: 1 !important;
+    }
+
+    .folder-left-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .folder-icon-box {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #93c5fd;
+    }
+
+    .folder-icon-box svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .folder-text-wrap {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .folder-year-tag {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .folder-label-title {
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.25;
+    }
+
+    .folder-arrow-tag {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.85rem;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .cascade-folder-card:hover .folder-arrow-tag {
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+
+
+    @media (max-width: 960px) {
+      .journey-clean-stage {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        padding-top: 50px;
+        min-height: auto;
+      }
+      .journey-clean-left {
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+      .journey-clean-stats {
+        justify-content: center;
+      }
+      .mac-display-frame {
+        max-width: 100%;
+        transform: none !important;
+      }
     }
 
     /* =========================================
@@ -1114,10 +1016,21 @@
       gap: 18px;
     }
 
-    .workflow-col:nth-child(1) { padding-top: 0px; }
-    .workflow-col:nth-child(2) { padding-top: 60px; }
-    .workflow-col:nth-child(3) { padding-top: 110px; }
-    .workflow-col:nth-child(4) { padding-top: 160px; }
+    .workflow-col:nth-child(1) {
+      padding-top: 0px;
+    }
+
+    .workflow-col:nth-child(2) {
+      padding-top: 60px;
+    }
+
+    .workflow-col:nth-child(3) {
+      padding-top: 110px;
+    }
+
+    .workflow-col:nth-child(4) {
+      padding-top: 160px;
+    }
 
     .workflow-pill {
       display: inline-flex;
@@ -1347,54 +1260,69 @@
         gap: 24px;
         text-align: center;
       }
-      .hero-left, .hero-right {
+
+      .hero-left,
+      .hero-right {
         align-items: center;
         text-align: center;
       }
+
       .hero-cta-group {
         justify-content: center;
       }
-      .services-split-body {
+
+      .journey-split-body {
         grid-template-columns: 1fr;
         gap: 20px;
       }
-      .services-mockup-card {
-        display: none;
+
+      .poster-quadrants-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
       }
+
       .workflow-header {
         flex-direction: column;
         gap: 16px;
         text-align: left;
       }
+
       .workflow-staircase {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
       }
+
       .workflow-col {
         padding-top: 0 !important;
       }
+
       .workflow-grid-lines {
         display: none;
       }
+
       .contact-link-row {
         flex-direction: column;
         align-items: center;
         text-align: center;
       }
+
       .contact-link-value {
         text-align: center;
       }
     }
 
     @media (max-width: 640px) {
-      .services-stats-strip {
+      .journey-stats-strip {
         grid-template-columns: repeat(2, 1fr);
         gap: 14px;
       }
+
       .workflow-staircase {
         grid-template-columns: 1fr;
       }
-      .workflow-container, .services-wrapper {
+
+      .workflow-container,
+      .journey-wrapper {
         height: auto;
         padding-top: 60px;
       }
@@ -1404,18 +1332,22 @@
     ::-webkit-scrollbar {
       width: 7px;
     }
+
     ::-webkit-scrollbar-track {
       background: #000000;
     }
+
     ::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.25);
       border-radius: 4px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
       background: var(--electric-blue);
     }
   </style>
 </head>
+
 <body>
 
   <!-- Top Scroll Progress Line -->
@@ -1425,7 +1357,7 @@
   <nav class="navbar" id="navbar">
     <a href="#home" class="nav-link active" data-section="0">Home</a>
     <a href="#about" class="nav-link" data-section="1">About</a>
-    <a href="#services" class="nav-link" data-section="2">Services</a>
+    <a href="#journey" class="nav-link" data-section="2">Journey</a>
     <a href="#projects" class="nav-link" data-section="3">Projects</a>
     <a href="#training" class="nav-link" data-section="4">Training</a>
     <a href="#skills" class="nav-link" data-section="5">Skills</a>
@@ -1447,20 +1379,32 @@
     <!-- SECTION 1: HERO -->
     <section class="section-layer active" id="sec-home">
       <div class="hero-left">
+        <div class="heading-circuit-badge">
+          <div class="heading-circuit-port"></div>
+          <div class="heading-circuit-tag">STEP 01 &bull; HERO</div>
+          <div class="heading-circuit-line"></div>
+        </div>
         <h2 class="hero-greeting">Hi I'm</h2>
         <h1 class="hero-name-primary">John Blesso</h1>
         <h2 class="hero-name-secondary">J J</h2>
         <p class="hero-title-tag">Computer Science and Engineering Student</p>
         <p class="hero-bio">
-          Hands-on training in MATLAB, machine learning, and deep learning, with working knowledge of Python, Java, C, SQL, and HTML. Expected to graduate in 2029.
+          Hands-on training in MATLAB, machine learning, and deep learning, with working knowledge of Python, Java, C,
+          SQL, and HTML. Expected to graduate in 2029.
         </p>
         <div class="hero-cta-group">
           <a href="#projects" class="btn-capsule primary" onclick="scrollToSection(3); return false;">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
             View Projects
           </a>
           <a href="#contact" class="btn-capsule" onclick="scrollToSection(7); return false;">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
             Contact
           </a>
         </div>
@@ -1475,188 +1419,169 @@
     <!-- SECTION 2: ABOUT -->
     <section class="section-layer" id="sec-about">
       <div class="card-glass">
+        <div class="heading-circuit-badge">
+          <div class="heading-circuit-port"></div>
+          <div class="heading-circuit-tag">STEP 02 &bull; ABOUT</div>
+          <div class="heading-circuit-line"></div>
+        </div>
         <span class="badge-sub">ABOUT</span>
         <h2 class="section-title">Applying Technical Skills to Practical Software</h2>
         <p class="section-desc">
-          I am a Computer Science and Engineering student at S. A. Engineering College, Chennai, expected to graduate in 2029.
+          I am a Computer Science and Engineering student at S. A. Engineering College, Chennai, expected to graduate in
+          2029.
         </p>
         <p class="section-desc">
-          I have a keen interest in applying my technical foundation to practical software projects, tackling real-world problem formulations, and continuing to learn and grow steadily as an engineer.
+          I have a keen interest in applying my technical foundation to practical software projects, tackling real-world
+          problem formulations, and continuing to learn and grow steadily as an engineer.
         </p>
         <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08);">
-          <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--cyan-accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px;">Industrial Visit</div>
+          <div
+            style="font-size: 0.75rem; text-transform: uppercase; color: var(--cyan-accent); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px;">
+            Industrial Visit</div>
           <div style="font-size: 0.9rem; font-weight: 600; color: #fff;">Space Zone India — 2026</div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: OUR SERVICES (MATCHES REFERENCE TEMPLATE) -->
-    <section class="section-layer" id="sec-services">
-      <div class="services-wrapper">
-        
-        <!-- Top Ticker Ribbon with Stars (Directly in Background) -->
-        <div class="services-ticker">
-          <div class="ticker-track">
-            <span class="ticker-item"><span class="ticker-star">✦</span> UI/UX Design</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Web Applications</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Machine Learning</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Python Development</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> MATLAB Simulation</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Deep Learning</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Java Programming</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Object-Oriented Design</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> App Building</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> SQL Databases</span>
-            <!-- Seamless loop duplicate -->
-            <span class="ticker-item"><span class="ticker-star">✦</span> UI/UX Design</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Web Applications</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Machine Learning</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Python Development</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> MATLAB Simulation</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Deep Learning</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Java Programming</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> Object-Oriented Design</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> App Building</span>
-            <span class="ticker-item"><span class="ticker-star">✦</span> SQL Databases</span>
-          </div>
-        </div>
+    <!-- SECTION 3: THE JOURNEY WITHIN (CLEAN 3D MAC CASCADE MATCHING REFERENCE) -->
+    <section class="section-layer" id="sec-journey">
+      <div class="journey-clean-stage">
 
-        <!-- Main Heading: Our Services (Matching Reference) -->
-        <h2 class="services-main-title">Our Services</h2>
-
-        <!-- Center Split: Left Details + Right Interactive Vector Visual Stage -->
-        <div class="services-split-body">
-          <div class="services-left-content">
-            <h3 class="services-service-title">UI/UX Design</h3>
-            <p class="services-service-desc">
-              Hands-on engineering and UI/UX design across software projects and interactive applications. Designing intuitive user flows, wireframes, and responsive web systems backed by clean architecture.
-            </p>
-            <div class="services-checklist">
-              <div class="services-check-item">
-                <span class="services-check-icon">✓</span>
-                <span>User Interface Design</span>
-              </div>
-              <div class="services-check-item">
-                <span class="services-check-icon">✓</span>
-                <span>User Experience Design</span>
-              </div>
-              <div class="services-check-item">
-                <span class="services-check-icon">✓</span>
-                <span>Mobile & Web Application Design</span>
-              </div>
-            </div>
-            <div style="margin-top: 14px;">
-              <a href="#projects" class="btn-capsule primary" onclick="scrollToSection(3); return false;">
-                LEARN MORE ↗
-              </a>
-            </div>
+        <!-- Left Narrative Column -->
+        <div class="journey-clean-left">
+          <div class="heading-circuit-badge">
+            <div class="heading-circuit-port"></div>
+            <div class="heading-circuit-tag">STEP 03 &bull; JOURNEY</div>
+            <div class="heading-circuit-line"></div>
           </div>
 
-          <!-- Right Visual Stage: Laptop + Phone + Sliders + Gears (Matching Reference) -->
-          <div class="services-visual-stage">
-            <div class="stage-glow"></div>
+          <h2 class="journey-clean-headline">
+            Years of work.<br>
+            <span class="headline-blue">One</span> journey.
+          </h2>
 
-            <!-- Floating Gears -->
-            <div class="floating-gear gear-large">
-              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M43.5 12h13l2.2 8.4c2.2.8 4.2 1.9 6 3.2l8.2-3.4 9.2 9.2-3.4 8.2c1.3 1.8 2.4 3.8 3.2 6l8.4 2.2v13l-8.4 2.2c-.8 2.2-1.9 4.2-3.2 6l3.4 8.2-9.2 9.2-8.2-3.4c-1.8 1.3-3.8 2.4-6 3.2l-2.2 8.4h-13l-2.2-8.4c-2.2-.8-4.2-1.9-6-3.2l-8.2 3.4-9.2-9.2 3.4-8.2c-1.3-1.8-2.4-3.8-3.2-6l-8.4-2.2v-13l8.4-2.2c.8-2.2 1.9-4.2 3.2-6l-3.4-8.2 9.2-9.2 8.2 3.4c1.8-1.3 3.8-2.4 6-3.2L43.5 12z" stroke="#94a3b8" stroke-width="4" fill="rgba(148,163,184,0.08)"/>
-                <circle cx="50" cy="50" r="14" stroke="#38bdf8" stroke-width="4" fill="rgba(56,189,248,0.06)"/>
-              </svg>
-            </div>
-            <div class="floating-gear gear-small">
-              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M43.5 12h13l2.2 8.4c2.2.8 4.2 1.9 6 3.2l8.2-3.4 9.2 9.2-3.4 8.2c1.3 1.8 2.4 3.8 3.2 6l8.4 2.2v13l-8.4 2.2c-.8 2.2-1.9 4.2-3.2 6l3.4 8.2-9.2 9.2-8.2-3.4c-1.8 1.3-3.8 2.4-6 3.2l-2.2 8.4h-13l-2.2-8.4c-2.2-.8-4.2-1.9-6-3.2l-8.2 3.4-9.2-9.2 3.4-8.2c-1.3-1.8-2.4-3.8-3.2-6l-8.4-2.2v-13l8.4-2.2c.8-2.2 1.9-4.2 3.2-6l-3.4-8.2 9.2-9.2 8.2 3.4c1.8-1.3 3.8-2.4 6-3.2L43.5 12z" stroke="#64748b" stroke-width="5" fill="rgba(100,116,139,0.06)"/>
-                <circle cx="50" cy="50" r="13" stroke="#60a5fa" stroke-width="5"/>
-              </svg>
-            </div>
+          <div class="journey-clean-capsule">
+            <span class="capsule-blue-dot"></span>
+            <span>Now available on Mac &bull; Batch 2025–2029</span>
+          </div>
 
-            <!-- Laptop Mockup -->
-            <div class="mockup-laptop">
-              <div class="laptop-screen">
-                <div class="laptop-screen-bar">
-                  <span class="bar-dot red"></span>
-                  <span class="bar-dot yellow"></span>
-                  <span class="bar-dot green"></span>
-                  <span class="bar-title">UI/UX & ML Analytics</span>
-                </div>
-                <div class="laptop-screen-content">
-                  <div class="mini-chart-card">
-                    <div class="mini-chart-header">
-                      <span>Model Convergence</span>
-                      <span class="mini-chart-badge">98.4%</span>
-                    </div>
-                    <svg class="mini-chart-svg" viewBox="0 0 200 60">
-                      <defs>
-                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45"/>
-                          <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
-                        </linearGradient>
-                      </defs>
-                      <path d="M0,45 Q30,15 60,32 T120,18 T160,26 T200,8 L200,60 L0,60 Z" fill="url(#chartGrad)"/>
-                      <path d="M0,45 Q30,15 60,32 T120,18 T160,26 T200,8" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
-                    </svg>
-                  </div>
-                  <div class="mini-cards-grid">
-                    <div class="mini-stat-card">
-                      <span class="mini-stat-lbl">Epochs</span>
-                      <span class="mini-stat-val">120/120</span>
-                    </div>
-                    <div class="mini-stat-card">
-                      <span class="mini-stat-lbl">Latency</span>
-                      <span class="mini-stat-val">12ms</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="laptop-base">
-                <div class="laptop-notch"></div>
-              </div>
-            </div>
+          <p class="journey-clean-desc">
+            From foundational school algorithms to machine learning models, 3D game engines, and full-stack systems. Every milestone advances toward 2029.
+          </p>
 
-            <!-- Floating Smartphone -->
-            <div class="mockup-phone">
-              <div class="phone-speaker"></div>
-              <div class="phone-screen">
-                <div class="phone-header">
-                  <span class="phone-title">UI/UX</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </div>
-                <div class="phone-card-hero"></div>
-                <div class="phone-widget-row">
-                  <div class="phone-mini-pill"></div>
-                  <div class="phone-mini-pill w60"></div>
-                </div>
-                <div class="phone-card-sub"></div>
-              </div>
+          <div class="journey-clean-stats">
+            <div class="clean-stat-item">
+              <span class="clean-stat-num">7.03</span>
+              <span class="clean-stat-lbl">CGPA (B.E. CSE)</span>
             </div>
-
-            <!-- Floating Sliders Widget -->
-            <div class="mockup-sliders-widget">
-              <div class="slider-track-col"><div class="slider-thumb pos-top"></div></div>
-              <div class="slider-track-col"><div class="slider-thumb pos-mid"></div></div>
-              <div class="slider-track-col"><div class="slider-thumb pos-high"></div></div>
-              <div class="slider-track-col"><div class="slider-thumb pos-low"></div></div>
+            <div class="clean-stat-divider"></div>
+            <div class="clean-stat-item">
+              <span class="clean-stat-num">6+</span>
+              <span class="clean-stat-lbl">Certifications</span>
+            </div>
+            <div class="clean-stat-divider"></div>
+            <div class="clean-stat-item">
+              <span class="clean-stat-num">2029</span>
+              <span class="clean-stat-lbl">Placement Goal</span>
             </div>
           </div>
         </div>
 
-        <!-- Bottom 4 Stats Strip matching reference layout with verified metrics -->
-        <div class="services-stats-strip">
-          <div>
-            <div class="stat-strip-val">7.03</div>
-            <div class="stat-strip-lbl">B.E. CSE CGPA</div>
-          </div>
-          <div>
-            <div class="stat-strip-val">8+</div>
-            <div class="stat-strip-lbl">Certifications & Onramps</div>
-          </div>
-          <div>
-            <div class="stat-strip-val">5</div>
-            <div class="stat-strip-lbl">Programming Languages</div>
-          </div>
-          <div>
-            <div class="stat-strip-val">2029</div>
-            <div class="stat-strip-lbl">Graduation Year</div>
+        <!-- Right 3D Stepped Cascade Folder Deck in Angled Mac Frame -->
+        <div class="journey-clean-right">
+          <div class="mac-display-frame">
+            <div class="mac-screen-inner">
+              <div class="cascade-blue-glow"></div>
+
+              <div class="cascade-deck">
+
+                <!-- Step 6 (Top / 2029 - Research & Notes) -->
+                <div class="cascade-folder-card card-step-6">
+                  <div class="folder-left-meta">
+                    <div class="folder-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                    </div>
+                    <div class="folder-text-wrap">
+                      <div class="folder-year-tag">2029</div>
+                      <div class="folder-label-title">Research &amp; Graduation Horizon</div>
+                    </div>
+                  </div>
+                  <div class="folder-arrow-tag">↗</div>
+                </div>
+
+                <!-- Step 5 (2027–2028 - Strategy & Plans) -->
+                <div class="cascade-folder-card card-step-5">
+                  <div class="folder-left-meta">
+                    <div class="folder-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"/></svg>
+                    </div>
+                    <div class="folder-text-wrap">
+                      <div class="folder-year-tag">2027–2028</div>
+                      <div class="folder-label-title">Strategy &amp; Smart Solutions</div>
+                    </div>
+                  </div>
+                  <div class="folder-arrow-tag">↗</div>
+                </div>
+
+                <!-- Step 4 (2026 - Meeting Transcripts / Creative Builds) -->
+                <div class="cascade-folder-card card-step-4">
+                  <div class="folder-left-meta">
+                    <div class="folder-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v5.018z"/></svg>
+                    </div>
+                    <div class="folder-text-wrap">
+                      <div class="folder-year-tag">2026</div>
+                      <div class="folder-label-title">Horror Game &amp; InfraShield AI</div>
+                    </div>
+                  </div>
+                  <div class="folder-arrow-tag">↗</div>
+                </div>
+
+                <!-- Step 3 (2026 - Reports & Analysis / Certifications) -->
+                <div class="cascade-folder-card card-step-3">
+                  <div class="folder-left-meta">
+                    <div class="folder-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+                    </div>
+                    <div class="folder-text-wrap">
+                      <div class="folder-year-tag">2026</div>
+                      <div class="folder-label-title">Reports &amp; Analysis (Java, Python, ML)</div>
+                    </div>
+                  </div>
+                  <div class="folder-arrow-tag">↗</div>
+                </div>
+
+                <!-- Step 2 (2025 - Ideas & Drafts / CSE Entry) -->
+                <div class="cascade-folder-card card-step-2">
+                  <div class="folder-left-meta">
+                    <div class="folder-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>
+                    </div>
+                    <div class="folder-text-wrap">
+                      <div class="folder-year-tag">2025</div>
+                      <div class="folder-label-title">Ideas &amp; Drafts (B.E. CSE Entry)</div>
+                    </div>
+                  </div>
+                  <div class="folder-arrow-tag">↗</div>
+                </div>
+
+                <!-- Step 1 (Bottom Front Folder - 2023 Projects & Docs) -->
+                <div class="cascade-folder-card card-step-1">
+                  <div class="folder-left-meta">
+                    <div class="folder-icon-box" style="background: rgba(56, 189, 248, 0.18); border: 1px solid rgba(56, 189, 248, 0.4);">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/></svg>
+                    </div>
+                    <div class="folder-text-wrap">
+                      <div class="folder-year-tag" style="color: #60a5fa;">2023</div>
+                      <div class="folder-label-title" style="color: #ffffff;">Projects &amp; Docs (First Code &amp; Logic)</div>
+                    </div>
+                  </div>
+                  <div class="folder-arrow-tag" style="color: #60a5fa;">↗</div>
+                </div>
+
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -1664,18 +1589,27 @@
     </section>
 
     <!-- SECTION 4: PROJECTS -->
-    <section class="section-layer" id="sec-projects">
+    <section class="section-layer" id="sec-projects" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; max-width: 1100px; margin-bottom: 20px;">
+        <div class="heading-circuit-badge">
+          <div class="heading-circuit-port"></div>
+          <div class="heading-circuit-tag">STEP 04 &bull; PROJECTS</div>
+          <div class="heading-circuit-line"></div>
+        </div>
+      </div>
       <div class="projects-container">
-        
+
         <!-- Project 1: InfraShield AI -->
         <div class="project-card">
           <div>
             <span class="badge-tag">Prototype / Decision-Support</span>
             <h3 class="project-name">InfraShield AI</h3>
-            <div style="font-size: 0.8rem; color: var(--cyan-accent); font-weight: 600; margin-bottom: 6px;">Explainable Infrastructure Resilience Simulator</div>
+            <div style="font-size: 0.8rem; color: var(--cyan-accent); font-weight: 600; margin-bottom: 6px;">Explainable
+              Infrastructure Resilience Simulator</div>
           </div>
           <p class="project-desc">
-            A preparedness decision-support prototype that simulates flood impacts across connected roads, power, water, and hospitals. Models dependency cascades and emergency access, and compares budget-aware interventions.
+            A preparedness decision-support prototype that simulates flood impacts across connected roads, power, water,
+            and hospitals. Models dependency cascades and emergency access, and compares budget-aware interventions.
           </p>
           <p class="project-desc">
             Uses deterministic calculations, with an optional LLM for scenario parsing and explanations.
@@ -1695,16 +1629,19 @@
           <div>
             <span class="badge-tag concept">Project Concept & Requirements</span>
             <h3 class="project-name">College Xerox Assisting Website</h3>
-            <div style="font-size: 0.8rem; color: #fbbf24; font-weight: 600; margin-bottom: 6px;">Student Print-Ordering Platform Concept</div>
+            <div style="font-size: 0.8rem; color: #fbbf24; font-weight: 600; margin-bottom: 6px;">Student Print-Ordering
+              Platform Concept</div>
           </div>
           <p class="project-desc">
             A project concept and comprehensive system requirements specification for a student print-ordering platform.
           </p>
           <p class="project-desc">
-            Described features include uploading PDFs or images, choosing print options with price estimates, reserving collection slots, paying by UPI or card, and receiving a queue number.
+            Described features include uploading PDFs or images, choosing print options with price estimates, reserving
+            collection slots, paying by UPI or card, and receiving a queue number.
           </p>
           <p class="project-desc" style="font-size: 0.82rem; color: rgba(255,255,255,0.7);">
-            Operator and admin requirements cover order status, pricing, slot management, and rules to prevent duplicate orders and queue numbers.
+            Operator and admin requirements cover order status, pricing, slot management, and rules to prevent duplicate
+            orders and queue numbers.
           </p>
           <div class="tech-pill-group">
             <span class="tech-pill">System Requirements</span>
@@ -1719,7 +1656,7 @@
     <!-- SECTION 5: TRAINING & CERTIFICATIONS (STAIRCASE TEMPLATE) -->
     <section class="section-layer" id="sec-training">
       <div class="workflow-container">
-        
+
         <!-- Faint vertical dashed guidelines matching reference template -->
         <div class="workflow-grid-lines">
           <div class="workflow-grid-line"></div>
@@ -1731,6 +1668,11 @@
         <!-- Top Header: Badge + Headline + Description (Strictly John's Given Data) -->
         <div class="workflow-header">
           <div class="workflow-header-left">
+            <div class="heading-circuit-badge">
+              <div class="heading-circuit-port"></div>
+              <div class="heading-circuit-tag">STEP 05 &bull; TRAINING</div>
+              <div class="heading-circuit-line"></div>
+            </div>
             <div class="workflow-badge">
               <span class="workflow-badge-dot"></span>
               Training & Certifications
@@ -1740,7 +1682,9 @@
             </h2>
           </div>
           <div class="workflow-header-right">
-            Hands-on training in MATLAB, machine learning, and deep learning, with working knowledge of Python, Java, C, SQL, and HTML. Certified in Java (Basic) by HackerRank and Basics of Python by Infosys Springboard, alongside MathWorks Onramps.
+            Hands-on training in MATLAB, machine learning, and deep learning, with working knowledge of Python, Java, C,
+            SQL, and HTML. Certified in Java (Basic) by HackerRank and Basics of Python by Infosys Springboard,
+            alongside MathWorks Onramps.
           </div>
         </div>
 
@@ -1750,14 +1694,20 @@
           <div class="workflow-col">
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                </svg>
                 Java (Basic)
               </span>
               <span class="workflow-pill-tag">HackerRank</span>
             </div>
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 Basics of Python
               </span>
               <span class="workflow-pill-tag">Infosys</span>
@@ -1768,14 +1718,20 @@
           <div class="workflow-col">
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                </svg>
                 MATLAB Onramp
               </span>
               <span class="workflow-pill-tag">MathWorks</span>
             </div>
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                </svg>
                 ML Onramp
               </span>
               <span class="workflow-pill-tag">MathWorks</span>
@@ -1786,14 +1742,20 @@
           <div class="workflow-col">
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
+                </svg>
                 DL Onramp
               </span>
               <span class="workflow-pill-tag">MathWorks</span>
             </div>
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+                </svg>
                 OOP Onramp
               </span>
               <span class="workflow-pill-tag">MathWorks</span>
@@ -1804,7 +1766,10 @@
           <div class="workflow-col">
             <div class="workflow-pill">
               <span class="workflow-pill-left">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                </svg>
                 App Building
               </span>
               <span class="workflow-pill-tag">MathWorks</span>
@@ -1815,7 +1780,8 @@
         <!-- Bottom Narrative Note (Strictly John's Given Data) -->
         <div class="workflow-footer-note">
           <span class="workflow-footer-dot"></span>
-          <span>HackerRank ID: ACA825383D4B · LearnTube.ai ID: DJA-B-1-2547798-0 · Infosys Springboard · MathWorks Onramps · Industrial Visit: Space Zone India (2026).</span>
+          <span>HackerRank ID: ACA825383D4B · LearnTube.ai ID: DJA-B-1-2547798-0 · Infosys Springboard · MathWorks
+            Onramps · Industrial Visit: Space Zone India (2026).</span>
         </div>
 
       </div>
@@ -1824,6 +1790,11 @@
     <!-- SECTION 6: SKILLS & STRENGTHS -->
     <section class="section-layer" id="sec-skills">
       <div class="card-glass" style="max-width: 680px;">
+        <div class="heading-circuit-badge">
+          <div class="heading-circuit-port"></div>
+          <div class="heading-circuit-tag">STEP 06 &bull; SKILLS</div>
+          <div class="heading-circuit-line"></div>
+        </div>
         <span class="badge-sub">COMPETENCIES</span>
         <h2 class="section-title">Skills & Strengths</h2>
 
@@ -1873,6 +1844,11 @@
     <!-- SECTION 7: EDUCATION & CERTIFICATIONS -->
     <section class="section-layer" id="sec-education">
       <div class="card-glass" style="max-width: 680px;">
+        <div class="heading-circuit-badge">
+          <div class="heading-circuit-port"></div>
+          <div class="heading-circuit-tag">STEP 07 &bull; EDUCATION</div>
+          <div class="heading-circuit-line"></div>
+        </div>
         <span class="badge-sub">ACADEMICS & CREDENTIALS</span>
         <h2 class="section-title">Education & Certifications</h2>
 
@@ -1902,21 +1878,25 @@
           <div class="timeline-list">
             <div class="timeline-item">
               <div class="timeline-degree">Java (Basic) Skill Certification</div>
-              <div class="timeline-school">HackerRank — Sep 2026 · Credential ID: <span style="color: var(--cyan-accent); font-family: monospace;">ACA825383D4B</span></div>
+              <div class="timeline-school">HackerRank — Sep 2026 · Credential ID: <span
+                  style="color: var(--cyan-accent); font-family: monospace;">ACA825383D4B</span></div>
               <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px;">
-                Passed the HackerRank skill certification test for Java (Basic), demonstrating core Java programming skills.
+                Passed the HackerRank skill certification test for Java (Basic), demonstrating core Java programming
+                skills.
               </div>
             </div>
             <div class="timeline-item">
               <div class="timeline-degree">Basics of Python</div>
               <div class="timeline-school">Infosys Springboard — Feb 2026</div>
               <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px;">
-                Completed the Basics of Python course from Infosys Springboard, covering Python fundamentals including variables, data types, control flow, functions and data structures.
+                Completed the Basics of Python course from Infosys Springboard, covering Python fundamentals including
+                variables, data types, control flow, functions and data structures.
               </div>
             </div>
             <div class="timeline-item">
               <div class="timeline-degree">Python Assessment</div>
-              <div class="timeline-school">LearnTube.ai — May 2026 · Credential ID: <span style="color: var(--cyan-accent); font-family: monospace;">DJA-B-1-2547798-0</span></div>
+              <div class="timeline-school">LearnTube.ai — May 2026 · Credential ID: <span
+                  style="color: var(--cyan-accent); font-family: monospace;">DJA-B-1-2547798-0</span></div>
               <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 3px;">
                 Successfully completed the Python Assessment from LearnTube.ai.
               </div>
@@ -1925,7 +1905,8 @@
               <div class="timeline-degree">MathWorks Onramp Certifications (6)</div>
               <div class="timeline-school">MathWorks — July 2026</div>
               <div style="font-size: 0.78rem; color: var(--cyan-accent); margin-top: 3px;">
-                MATLAB, Machine Learning, Deep Learning, Object-Oriented Programming, App Building, Import Data from Multiple Files
+                MATLAB, Machine Learning, Deep Learning, Object-Oriented Programming, App Building, Import Data from
+                Multiple Files
               </div>
             </div>
           </div>
@@ -1936,6 +1917,11 @@
     <!-- SECTION 8: CONTACT -->
     <section class="section-layer" id="sec-contact">
       <div class="card-glass contact-card">
+        <div class="heading-circuit-badge">
+          <div class="heading-circuit-port"></div>
+          <div class="heading-circuit-tag">STEP 08 &bull; CONTACT</div>
+          <div class="heading-circuit-line"></div>
+        </div>
         <span class="badge-sub">GET IN TOUCH</span>
         <h2 class="section-title">Contact</h2>
         <p class="section-desc">
@@ -1945,23 +1931,34 @@
         <div class="contact-links-grid">
           <a href="mailto:johnblesso73@gmail.com" class="contact-link-row">
             <span class="contact-link-label">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
               Email
             </span>
             <span class="contact-link-value">johnblesso73@gmail.com</span>
           </a>
 
-          <a href="https://www.linkedin.com/in/john-blesso-599727434?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+          <a href="https://www.linkedin.com/in/john-blesso-599727434?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank" rel="noopener noreferrer" class="contact-link-row">
             <span class="contact-link-label">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
               LinkedIn
             </span>
             <span class="contact-link-value">john-blesso-599727434</span>
           </a>
 
-          <a href="https://github.com/johnblesso73-sudo" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+          <a href="https://github.com/johnblesso73-sudo" target="_blank" rel="noopener noreferrer"
+            class="contact-link-row">
             <span class="contact-link-label">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
               GitHub
             </span>
             <span class="contact-link-value">johnblesso73-sudo</span>
@@ -1984,7 +1981,7 @@
   <div id="scroll-track"></div>
 
   <script>
-    (function() {
+    (function () {
       const TOTAL_FRAMES = 240;
       const canvas = document.getElementById('animation-canvas');
       const ctx = canvas.getContext('2d', { alpha: false });
@@ -1995,7 +1992,7 @@
       const sectionLayers = [
         document.getElementById('sec-home'),
         document.getElementById('sec-about'),
-        document.getElementById('sec-services'),
+        document.getElementById('sec-journey'),
         document.getElementById('sec-projects'),
         document.getElementById('sec-training'),
         document.getElementById('sec-skills'),
@@ -2111,7 +2108,7 @@
         // 8 Sections across 0.0 to 1.0:
         // 0: Home      (0.00 - 0.12)
         // 1: About     (0.12 - 0.24)
-        // 2: Services  (0.24 - 0.38)
+        // 2: Journey   (0.24 - 0.38)
         // 3: Projects  (0.38 - 0.52)
         // 4: Training  (0.52 - 0.66)
         // 5: Skills    (0.66 - 0.78)
@@ -2156,7 +2153,7 @@
         }
 
         // Dynamic watermark word
-        const words = ['JOHN BLESSO', 'ABOUT', 'SERVICES', 'PROJECTS', 'TRAINING', 'SKILLS', 'EDUCATION', 'CONTACT'];
+        const words = ['JOHN BLESSO', 'ABOUT', 'JOURNEY', 'PROJECTS', 'TRAINING', 'SKILLS', 'EDUCATION', 'CONTACT'];
         watermark.textContent = words[activeIdx];
       }
 
@@ -2215,7 +2212,7 @@
       }
 
       // Smooth section jump helper
-      window.scrollToSection = function(sectionIdx) {
+      window.scrollToSection = function (sectionIdx) {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const targets = [0.0, 0.18, 0.31, 0.45, 0.59, 0.72, 0.84, 1.0];
         const targetScroll = targets[sectionIdx] * scrollHeight;
@@ -2242,4 +2239,5 @@
     })();
   </script>
 </body>
+
 </html>
